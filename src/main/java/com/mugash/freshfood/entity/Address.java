@@ -1,5 +1,6 @@
 package com.mugash.freshfood.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,6 @@ import javax.persistence.*;
 public class Address {
 
     @Id
-    @Column(name="address_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
@@ -30,8 +30,9 @@ public class Address {
     private String city;
     private int pincode;
 
-    @OneToOne(mappedBy = "address")
-    @JsonManagedReference
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    @JsonBackReference
     private User user;
 
 }

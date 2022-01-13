@@ -4,14 +4,12 @@ import com.mugash.freshfood.entity.User;
 import com.mugash.freshfood.repository.AddressRepository;
 import com.mugash.freshfood.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class FreshfoodController {
 
     @Autowired
@@ -32,6 +30,7 @@ public class FreshfoodController {
 
     @PostMapping("/registerUser")
     public void registerUser(@RequestBody User user) {
+        addressRepo.save(user.getAddress());
         userRepo.save(user);
     }
 

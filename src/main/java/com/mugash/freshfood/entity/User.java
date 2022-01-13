@@ -1,6 +1,7 @@
 package com.mugash.freshfood.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,15 +19,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="user_id")
     private int id;
-    @Column(name="user_cat")
     private String userCat;
-    private String name;
+    private String userName;
     private String phone;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="address_id")
-    @JsonBackReference
+    @OneToOne(mappedBy = "user")
+    @JsonManagedReference
     private Address address;
 }
